@@ -1,0 +1,3 @@
+require('./../../project/header/header.js');
+require('./../../project/hero/hero.js');
+require('./../../project/devices/devices.js');
