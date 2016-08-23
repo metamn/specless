@@ -1,17 +1,17 @@
 // Scrolled into view
 //
-// Check if an element is in the viewport
+// Check if a section is in the viewport
 //
-// $el - the element
-// $marginBottom -
-// $marginTop -
+// $startPoint - the top of the section (px)
+// $endPoint - the bottom of the section (px)
 
-function scrolledIntoView(el, marginTop, marginBottom) {
-  var elemBottom = el.getBoundingClientRect().bottom;
-  var elemTop = el.getBoundingClientRect().top;
-  var isVisible = ((elemTop < marginTop) && (elemBottom > marginBottom));
+function scrolledIntoView(startPoint, endPoint, offset) {
+  var distance = (document.documentElement || document.body.parentNode || document.body).scrollTop;
+  var isVisible = (((distance + offset) > startPoint) && ((distance + offset) < endPoint));
 
-  //console.log(elemTop + ', ' + marginTop + ', ' + isVisible);
+  //console.log('d:' + distance + ', s:' + startPoint + ', e:' + endPoint);
+  //console.log(isVisible);
+  //console.log('');
 
   return isVisible;
 }

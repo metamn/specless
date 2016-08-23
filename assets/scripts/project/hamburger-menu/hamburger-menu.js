@@ -16,6 +16,7 @@ var hamburgerMenu = function(triggerID, menuID) {
     toggleClass(icon, iconID);
     toggleClass(text, textID);
     toggleClass(menu, menuID);
+    toggleClass(trigger, triggerID);
   }
 
   function toggleClass(element, klassName) {

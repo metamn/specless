@@ -7,10 +7,20 @@ var visibleItems = [];
 var filter = function(type, filtersID, itemsID) {
   var filters = document.querySelectorAll(filtersID);
   var items = document.querySelectorAll(itemsID);
+  var horizontalLines = document.querySelectorAll('.features__articles .horizontal-line');
 
   for (var i = 0; i < filters.length; i++) {
     filters[i].addEventListener('click', clickFilter, false);
+    filters[i].classList.add('filter--inactive');
   }
+
+  // make first filter active
+  filters[0].classList.remove('filter--inactive');
+  filters[0].classList.add('filter--active');
+
+
+  // Regrid elements
+  doRegrid();
 
 
   // Click on a filter
@@ -28,6 +38,9 @@ var filter = function(type, filtersID, itemsID) {
 
     // do the filtering
     doFilter();
+
+    // regrid elements
+    doRegrid();
   }
 
 
@@ -36,6 +49,7 @@ var filter = function(type, filtersID, itemsID) {
     for (var i = 0; i < items.length; i++) {
       // show all
       items[i].classList.remove('article--inactive');
+      horizontalLines[i].style.display = "flex";
 
       // combine filters
       // - only those items will be displayed who satisfy all filter criterias
@@ -51,6 +65,32 @@ var filter = function(type, filtersID, itemsID) {
     }
   }
 
+
+  // Regrid elements after filtering
+  function doRegrid() {
+    var counter = 0;
+    var lastVisibleArticle = 0;
+
+    for (var i = 0; i < items.length; i++) {
+      // Remove old classes
+      items[i].classList.remove('article--horizontal-switched');
+
+      // Add regrid classes
+      if (!items[i].classList.contains('article--inactive')) {
+        lastVisibleArticle = i;
+        counter += 1;
+        if (counter % 2 == 0) {
+          items[i].classList.add('article--horizontal-switched');
+        }
+      }
+    }
+
+    horizontalLines[lastVisibleArticle].style.display = "none";
+  }
+
+
+  // Helpers
+  //
 
   // Remove certain elements from an array
   function removeAllElements(array, type) {
